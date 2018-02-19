@@ -9,7 +9,11 @@ namespace Game.System
     {
         public IEnumerator Start()
         {
-            Messenger.Broker.Receive<InputReloadScene>().Subscribe(_ => SceneManager.LoadScene("Main")).AddTo(this);
+            Messenger.Broker.Receive<InputReloadScene>().Subscribe(_ =>
+            {
+                Debug.Log("Reload Scene");
+                SceneManager.LoadScene("Main");
+            }).AddTo(this);
 
             while (true)
             {
