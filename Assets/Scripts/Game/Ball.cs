@@ -1,5 +1,6 @@
 ﻿using System;
-using Game.System;
+using GameSystem;
+using UniRx;
 using UnityEngine;
 
 namespace Game
@@ -16,11 +17,13 @@ namespace Game
             Bottom,
         }
 
+        private bool inGame;
         private LayerMask hitLayerMask;
 
         public void Start()
         {
             var spriteRenderer = GetComponent<SpriteRenderer>();
+            inGame = true;
 
             switch (Type)
             {
@@ -37,10 +40,18 @@ namespace Game
                 default:
                     throw new ArgumentOutOfRangeException($"Unknown Type {Type}");
             }
+
+            Messenger.Broker.Receive<OnGameFinish>().Subscribe(_ =>
+            {
+                inGame = false;
+                Destroy(gameObject);
+            }).AddTo(this);
         }
 
         public void Update()
         {
+            if (!inGame) return;
+
             var vec = Velocity * Time.deltaTime;
             var current = new Vector2(transform.position.x, transform.position.y);
             var next = new Vector2(transform.position.x + vec.x, transform.position.y + vec.y);
@@ -83,12 +94,13 @@ namespace Game
 
         private void HitDead()
         {
-            Messenger.Broker.Publish(new OnGameOver());
+            Messenger.Broker.Publish(new OnDropBall());
             Destroy(gameObject);
         }
 
         private void HitPlayer()
         {
+            Messenger.Broker.Publish(new OnRefrectBall());
             Destroy(gameObject);
         }
     }

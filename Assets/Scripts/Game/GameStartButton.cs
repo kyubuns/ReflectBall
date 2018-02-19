@@ -1,4 +1,4 @@
-﻿using Game.System;
+﻿using GameSystem;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;

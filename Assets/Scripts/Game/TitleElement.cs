@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AnimeRx;
-using Game.System;
+using GameSystem;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;

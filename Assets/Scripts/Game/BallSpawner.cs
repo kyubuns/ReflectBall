@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using Game.System;
+using GameSystem;
 using UniRx;
 using UnityEngine;
 
