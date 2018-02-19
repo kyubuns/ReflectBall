@@ -49,8 +49,6 @@ namespace Game
                     Random.Range(rangeMin, rangeMax),
                     barPosition - ball.Velocity.y * Sec,
                     transform.position.z);
-
-                yield break;
             }
         }
     }
