@@ -9,8 +9,6 @@ namespace Game
         public Vector2 Velocity;
         public float Radius;
         public BallType Type;
-        public Color Top;
-        public Color Bottom;
 
         public enum BallType
         {
@@ -27,13 +25,13 @@ namespace Game
             switch (Type)
             {
                 case BallType.Top:
-                    spriteRenderer.color = Top;
-                    hitLayerMask = LayerMask.GetMask("Stage", "TopBar");
+                    spriteRenderer.color = Colors.Top;
+                    hitLayerMask = LayerMask.GetMask("Stage", "TopBar", "Dead");
                     break;
 
                 case BallType.Bottom:
-                    spriteRenderer.color = Bottom;
-                    hitLayerMask = LayerMask.GetMask("Stage", "BottomBar");
+                    spriteRenderer.color = Colors.Bottom;
+                    hitLayerMask = LayerMask.GetMask("Stage", "BottomBar", "Dead");
                     break;
 
                 default:
@@ -86,6 +84,7 @@ namespace Game
         private void HitDead()
         {
             Messenger.Broker.Publish(new OnGameOver());
+            Destroy(gameObject);
         }
 
         private void HitPlayer()
