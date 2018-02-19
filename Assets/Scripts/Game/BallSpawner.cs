@@ -37,12 +37,13 @@ namespace Game
             {
                 yield return new WaitForSeconds(1.0f);
 
-                var targetType = new[] {Ball.BallType.Bottom, Ball.BallType.Top}[Random.Range(0, 2)];
-                var targetPositionY = targetType == Ball.BallType.Top ? barTop.position.y : barBottom.position.y;
                 var targetPositionX = 0.0f;
 
                 for (var i = 0; i < 5; ++i)
                 {
+                    var targetType = new[] {Ball.BallType.Bottom, Ball.BallType.Top}[Random.Range(0, 2)];
+                    var targetPositionY = targetType == Ball.BallType.Top ? barTop.position.y : barBottom.position.y;
+
                     var ballObject = Instantiate(ballPrefab, transform, true);
 
                     var ball = ballObject.GetComponent<Ball>();
