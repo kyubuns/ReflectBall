@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 265888567}
   - component: {fileID: 265888568}
+  - component: {fileID: 265888569}
   m_Layer: 12
   m_Name: Eraser
   m_TagString: Eraser
@@ -167,6 +168,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 15, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &265888569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 265888566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 218847cc8ed914dbcaece9c0cb98b647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &356618901
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,6 +390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 682425193}
   - component: {fileID: 682425194}
+  - component: {fileID: 682425195}
   m_Layer: 11
   m_Name: Dead
   m_TagString: Dead
@@ -423,6 +436,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 15, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &682425195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 682425192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 601f8add1d074370a4f33b50bdee2c76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &711200255
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,6 +799,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1055781114}
   - component: {fileID: 1055781115}
+  - component: {fileID: 1055781116}
   m_Layer: 8
   m_Name: Hit
   m_TagString: Player
@@ -820,6 +845,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1055781116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1055781113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d84102e2f8942a3a59a764d7ca697a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1091345148
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,6 +865,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1091345149}
   - component: {fileID: 1091345150}
+  - component: {fileID: 1091345151}
   m_Layer: 9
   m_Name: Hit
   m_TagString: Player
@@ -874,6 +911,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1091345151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1091345148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d84102e2f8942a3a59a764d7ca697a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1125905176
 GameObject:
   m_ObjectHideFlags: 0

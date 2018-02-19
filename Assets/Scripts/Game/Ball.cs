@@ -61,31 +61,13 @@ namespace Game
             var hit = Physics2D.Raycast(current, direction, distance, hitLayerMask);
             if (hit.collider != null)
             {
-                if (hit.collider.gameObject.CompareTag("Player"))
-                {
-                    HitPlayer();
-                    return;
-                }
-
-                if (hit.collider.gameObject.CompareTag("Dead"))
-                {
-                    HitDead();
-                    return;
-                }
-
-                if (hit.collider.gameObject.CompareTag("Eraser"))
-                {
-                    HitEraser();
-                    return;
-                }
-
                 if (hit.collider.gameObject.CompareTag("Stage"))
                 {
                     next = HitStage(hit, current, direction);
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException($"Unknown gameobject {hit.collider.gameObject}");
+                    hit.collider.gameObject.SendMessage("OnHitBall", this);
                 }
             }
 
@@ -96,23 +78,6 @@ namespace Game
         {
             Velocity.x *= -1f;
             return current + direction * Mathf.Max(hit.distance - Radius, 0.0f);
-        }
-
-        private void HitDead()
-        {
-            Messenger.Broker.Publish(new OnDropBall());
-            Destroy(gameObject);
-        }
-
-        private void HitPlayer()
-        {
-            Messenger.Broker.Publish(new OnRefrectBall());
-            Destroy(gameObject);
-        }
-
-        private void HitEraser()
-        {
-            Destroy(gameObject);
         }
     }
 }
