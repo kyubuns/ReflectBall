@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Stage
   - Dead
+  - Eraser
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - BottomBar
   - Stage
   - Dead
-  - 
+  - Eraser
   - 
   - 
   - 

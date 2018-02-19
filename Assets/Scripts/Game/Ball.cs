@@ -29,12 +29,12 @@ namespace Game
             {
                 case BallType.Top:
                     spriteRenderer.color = Colors.Top;
-                    hitLayerMask = LayerMask.GetMask("Stage", "TopBar", "Dead");
+                    hitLayerMask = LayerMask.GetMask("Stage", "TopBar", "Dead", "Eraser");
                     break;
 
                 case BallType.Bottom:
                     spriteRenderer.color = Colors.Bottom;
-                    hitLayerMask = LayerMask.GetMask("Stage", "BottomBar", "Dead");
+                    hitLayerMask = LayerMask.GetMask("Stage", "BottomBar", "Dead", "Eraser");
                     break;
 
                 default:
@@ -73,6 +73,12 @@ namespace Game
                     return;
                 }
 
+                if (hit.collider.gameObject.CompareTag("Eraser"))
+                {
+                    HitEraser();
+                    return;
+                }
+
                 if (hit.collider.gameObject.CompareTag("Stage"))
                 {
                     next = HitStage(hit, current, direction);
@@ -101,6 +107,11 @@ namespace Game
         private void HitPlayer()
         {
             Messenger.Broker.Publish(new OnRefrectBall());
+            Destroy(gameObject);
+        }
+
+        private void HitEraser()
+        {
             Destroy(gameObject);
         }
     }
