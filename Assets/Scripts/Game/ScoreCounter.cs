@@ -21,7 +21,9 @@ namespace Game
                 if (inTutorial) text.text = "Tutorial";
                 else UpdateScoreText(0);
             }).AddTo(this);
+
             Messenger.Broker.Receive<OnUpdateScore>().Subscribe(x => UpdateScoreText(x.Score)).AddTo(this);
+
             Messenger.Broker.Receive<FinishTutorial>().Subscribe(_ =>
             {
                 inTutorial = false;

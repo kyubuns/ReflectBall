@@ -1,4 +1,5 @@
 ﻿using System;
+using AnimeRx;
 using GameSystem;
 using UniRx;
 using UnityEngine;
@@ -44,7 +45,15 @@ namespace Game
             Messenger.Broker.Receive<OnGameFinish>().Subscribe(_ =>
             {
                 IsAlive = false;
-                Destroy(gameObject);
+                var c = spriteRenderer.color;
+                Anime.Play(1f, 0f, Easing.InOutCubic(TimeSpan.FromSeconds(1f)))
+                    .TakeUntilDestroy(gameObject)
+                    .DoOnCompleted(() => Destroy(gameObject))
+                    .Subscribe(x =>
+                    {
+                        c.a = x;
+                        spriteRenderer.color = c;
+                    });
             }).AddTo(this);
         }
 
