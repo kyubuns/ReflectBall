@@ -1,5 +1,4 @@
-﻿using Game;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GameSystem
 {
@@ -14,9 +13,12 @@ namespace GameSystem
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Messenger.Broker.Publish(new OnShowTopBar());
-                Messenger.Broker.Publish(new FinishTutorial());
+                Messenger.Broker.Publish(new InputRequestTutorialSkip());
             }
         }
+    }
+
+    public class InputRequestTutorialSkip
+    {
     }
 }

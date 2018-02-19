@@ -8,12 +8,31 @@ namespace GameSystem
 {
     public class Director : MonoBehaviour
     {
+        private bool inGame;
         private bool tutorialFinished;
 
         public void Start()
         {
-            Messenger.Broker.Receive<OnGameStart>().Subscribe(_ => StartCoroutine(Flow())).AddTo(this);
-            Messenger.Broker.Receive<OnGameFinish>().Subscribe(_ => StopAllCoroutines()).AddTo(this);
+            Messenger.Broker.Receive<OnGameStart>().Subscribe(_ =>
+            {
+                inGame = true;
+                StartCoroutine(Flow());
+            }).AddTo(this);
+
+            Messenger.Broker.Receive<OnGameFinish>().Subscribe(_ =>
+            {
+                inGame = false;
+                StopAllCoroutines();
+            }).AddTo(this);
+
+            Messenger.Broker.Receive<InputRequestTutorialSkip>().Subscribe(_ =>
+            {
+                if (inGame) return;
+                Messenger.Broker.Publish(new OnShowTopBar());
+                Messenger.Broker.Publish(new FinishTutorial());
+            }).AddTo(this);
+
+            Messenger.Broker.Receive<FinishTutorial>().Subscribe(_ => tutorialFinished = true).AddTo(this);
         }
 
         private IEnumerator Flow()
@@ -51,8 +70,8 @@ namespace GameSystem
             var loop = 0;
             while (true)
             {
-                var num = Mathf.RoundToInt(Random.Range(1, 2 + Mathf.Sqrt(loop)));
-                var wait = Random.Range(0.2f, Mathf.Max(3.0f - loop * 0.05f, 0.7f));
+                var num = Mathf.RoundToInt(Random.Range(1, 2 + Mathf.RoundToInt(loop / 2f)));
+                var wait = Random.Range(0.3f, Mathf.Max(3.0f - loop * 0.05f, 0.5f));
                 Debug.Log($"{loop}: {num}, {wait}");
                 Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom}, Num = num});
 
