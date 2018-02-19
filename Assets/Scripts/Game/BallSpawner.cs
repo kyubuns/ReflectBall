@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using GameSystem;
+﻿using GameSystem;
 using UniRx;
 using UnityEngine;
 using Random = UnityEngine.Random;
-
-// ReSharper disable IteratorNeverReturns
 
 namespace Game
 {
@@ -16,7 +13,7 @@ namespace Game
 
         private float rangeMin;
         private float rangeMax;
-        private const float Sec = 6.0f;
+        private const float Sec = 4.0f;
 
         public void Start()
         {
@@ -27,47 +24,49 @@ namespace Game
             rangeMin = transform.position.x - leftHit.distance + size;
             rangeMax = transform.position.x + rightHit.distance - size;
 
-            Messenger.Broker.Receive<OnGameStart>().Subscribe(_ => StartCoroutine(Spawner())).AddTo(this);
-            Messenger.Broker.Receive<OnGameFinish>().Subscribe(_ => StopAllCoroutines()).AddTo(this);
+            Messenger.Broker.Receive<RequestBall>().Subscribe(Spawn).AddTo(this);
         }
 
-        private IEnumerator Spawner()
+        private void Spawn(RequestBall args)
         {
             var d = rangeMax - rangeMin;
+            var targetPositionX = Random.Range(rangeMin, rangeMax);
 
-            while (true)
+            for (var i = 0; i < args.Num; ++i)
             {
-                var targetPositionX = Random.Range(rangeMin, rangeMax);
+                var targetType = args.Types[Random.Range(0, args.Types.Length)];
+                var targetPositionY = targetType == Ball.BallType.Top ? barTop.position.y : barBottom.position.y;
 
-                for (var i = 0; i < 30; ++i)
+                var ballObject = Instantiate(ballPrefab, transform, true);
+
+                var ball = ballObject.GetComponent<Ball>();
+                ball.Type = targetType;
+                ball.Velocity = new Vector2(Random.Range(-6f, 6f), Random.Range(-3f, -6f));
+
+                var startY = targetPositionY - ball.Velocity.y * Sec;
+                var calcX = targetPositionX - ball.Velocity.x * Sec;
+
+                var startX = (calcX - rangeMin) % d + rangeMin;
+                var b = calcX > rangeMin
+                    ? Mathf.FloorToInt((calcX - rangeMin) / d)
+                    : Mathf.CeilToInt((calcX - rangeMin) / d);
+
+                if (startX < rangeMin)
                 {
-                    var targetType = new[] {Ball.BallType.Bottom, Ball.BallType.Top}[Random.Range(0, 2)];
-                    var targetPositionY = targetType == Ball.BallType.Top ? barTop.position.y : barBottom.position.y;
-
-                    var ballObject = Instantiate(ballPrefab, transform, true);
-
-                    var ball = ballObject.GetComponent<Ball>();
-                    ball.Type = targetType;
-                    ball.Velocity = new Vector2(Random.Range(-6f, 6f), Random.Range(-2f, -6f));
-
-                    var startY = targetPositionY - ball.Velocity.y * Sec;
-                    var calcX = targetPositionX - ball.Velocity.x * Sec;
-
-                    var startX = (calcX - rangeMin) % d + rangeMin;
-                    var b = calcX > rangeMin ? Mathf.FloorToInt((calcX - rangeMin) / d) : Mathf.CeilToInt((calcX - rangeMin) / d);
-                    if (startX < rangeMin)
-                    {
-                        startX += d;
-                        b++;
-                    }
-                    startX *= b % 2 == 0 ? 1 : -1;
-                    ball.Velocity.x = ball.Velocity.x * Mathf.Pow(-1.0f, b);
-                    Debug.Log($"Spawn ({startX}, {startY}) {ball.Velocity}");
-                    ballObject.transform.position = new Vector3(startX, startY, transform.position.z);
+                    startX += d;
+                    b++;
                 }
 
-                yield return new WaitForSeconds(5.0f);
+                startX *= b % 2 == 0 ? 1 : -1;
+                ball.Velocity.x = ball.Velocity.x * Mathf.Pow(-1.0f, b);
+                ballObject.transform.position = new Vector3(startX, startY, transform.position.z);
             }
         }
+    }
+
+    public class RequestBall
+    {
+        public Ball.BallType[] Types { get; set; }
+        public int Num { get; set; }
     }
 }
