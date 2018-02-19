@@ -8,7 +8,7 @@ namespace Game.System
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Messenger.Broker.Publish(new ReloadScene());
+                Messenger.Broker.Publish(new InputReloadScene());
             }
         }
     }
