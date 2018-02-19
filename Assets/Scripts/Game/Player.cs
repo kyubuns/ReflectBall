@@ -10,6 +10,7 @@ namespace Game
     {
         [SerializeField] private SpriteRenderer sprite;
         private readonly Subject<Unit> subject = new Subject<Unit>();
+        private bool inTutorial = true;
 
         public void Start()
         {
@@ -17,11 +18,13 @@ namespace Game
                 .Switch()
                 .SubscribeToLocalScale(sprite.transform)
                 .AddTo(this);
+
+            Messenger.Broker.Receive<FinishTutorial>().Subscribe(_ => inTutorial = false).AddTo(this);
         }
 
         public void OnHitBall(Ball ball)
         {
-            Messenger.Broker.Publish(new OnRefrectBall());
+            if (!inTutorial) Messenger.Broker.Publish(new OnRefrectBall());
 
             ball.IsAlive = false;
             subject.OnNext(Unit.Default);
@@ -39,5 +42,9 @@ namespace Game
                 .TakeUntilDestroy(ball.gameObject)
                 .SubscribeToLocalScale(ball.gameObject);
         }
+    }
+
+    public class FinishTutorial
+    {
     }
 }
