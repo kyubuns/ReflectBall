@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Velocity: {x: 3, y: -5}
-  Radius: 0.2
+  Radius: 0.15
   Type: 0
 --- !u!212 &212058180311198982
 SpriteRenderer:

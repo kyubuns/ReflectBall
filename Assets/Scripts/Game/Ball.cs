@@ -55,10 +55,10 @@ namespace Game
             var vec = Velocity * Time.deltaTime;
             var current = new Vector2(transform.position.x, transform.position.y);
             var next = new Vector2(transform.position.x + vec.x, transform.position.y + vec.y);
-            var distance = Vector2.Distance(current, next);
-            var direction = next - current;
+            var distance = Vector2.Distance(current, next) + Radius;
+            var direction = (next - current).normalized;
 
-            var hit = Physics2D.CircleCast(current, Radius, direction, distance, hitLayerMask);
+            var hit = Physics2D.Raycast(current, direction, distance, hitLayerMask);
             if (hit.collider != null)
             {
                 if (hit.collider.gameObject.CompareTag("Player"))
@@ -89,7 +89,7 @@ namespace Game
         private Vector2 HitStage(RaycastHit2D hit, Vector2 current, Vector2 direction)
         {
             Velocity.x *= -1f;
-            return current + direction.normalized * (hit.distance - 0.01f);
+            return current + direction * Mathf.Max(hit.distance - Radius, 0.0f);
         }
 
         private void HitDead()
