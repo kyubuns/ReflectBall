@@ -34,7 +34,7 @@ namespace Game
         private IEnumerator Spawner()
         {
             var d = rangeMax - rangeMin;
-            
+
             while (true)
             {
                 var targetPositionX = Random.Range(rangeMin, rangeMax);

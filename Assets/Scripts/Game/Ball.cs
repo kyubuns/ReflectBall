@@ -17,13 +17,13 @@ namespace Game
             Bottom,
         }
 
-        private bool inGame;
+        public bool IsAlive { get; set; }
         private LayerMask hitLayerMask;
 
         public void Start()
         {
             var spriteRenderer = GetComponent<SpriteRenderer>();
-            inGame = true;
+            IsAlive = true;
 
             switch (Type)
             {
@@ -43,14 +43,14 @@ namespace Game
 
             Messenger.Broker.Receive<OnGameFinish>().Subscribe(_ =>
             {
-                inGame = false;
+                IsAlive = false;
                 Destroy(gameObject);
             }).AddTo(this);
         }
 
         public void Update()
         {
-            if (!inGame) return;
+            if (!IsAlive) return;
 
             var vec = Velocity * Time.deltaTime;
             var current = new Vector2(transform.position.x, transform.position.y);
