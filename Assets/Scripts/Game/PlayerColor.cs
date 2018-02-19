@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
+using AnimeRx;
+using GameSystem;
+using UniRx;
+using UnityEngine;
 
 namespace Game
 {
@@ -9,8 +13,24 @@ namespace Game
 
         public void Start()
         {
-            top.color = Colors.Top;
+            var c = Colors.Top;
+            c.a = 0.0f;
+            top.color = c;
             bottom.color = Colors.Bottom;
+
+            Messenger.Broker.Receive<OnShowTopBar>()
+                .Select(x => Anime.Play(c.a, 1.0f, Easing.InOutCubic(TimeSpan.FromSeconds(0.3f))))
+                .Switch()
+                .Subscribe(x =>
+                {
+                    c.a = x;
+                    top.color = c;
+                })
+                .AddTo(this);
         }
+    }
+
+    public class OnShowTopBar
+    {
     }
 }
