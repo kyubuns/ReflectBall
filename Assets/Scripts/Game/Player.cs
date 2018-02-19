@@ -26,6 +26,10 @@ namespace Game
             ball.IsAlive = false;
             subject.OnNext(Unit.Default);
 
+            var spriteRenderer = ball.GetComponent<SpriteRenderer>();
+            spriteRenderer.color = spriteRenderer.color / 2;
+            spriteRenderer.sortingLayerID = SortingLayer.NameToID("ReflectedBall");
+
             Anime.PlayRelative(ball.transform.position, new Vector3(0f, 15f, 0f), Easing.OutExpo(TimeSpan.FromSeconds(1.5f)))
                 .TakeUntilDestroy(ball.gameObject)
                 .DoOnCompleted(() => Destroy(ball.gameObject))
