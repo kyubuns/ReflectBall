@@ -14,8 +14,6 @@ namespace Game
 
         public void Start()
         {
-            ballPrefab.SetActive(false);
-
             var layerMask = LayerMask.GetMask("Stage");
             var size = ballPrefab.GetComponent<Ball>().Radius;
             var leftHit = Physics2D.Raycast(transform.position, Vector2.left, float.PositiveInfinity, layerMask);
@@ -39,8 +37,6 @@ namespace Game
                 var ball = ballObject.GetComponent<Ball>();
                 ball.Type = new []{ Ball.BallType.Bottom, Ball.BallType.Top }[Random.Range(0, 2)];
                 ball.Velocity = new Vector2(Random.Range(-6f, 6f), Random.Range(-2f, -6f));
-
-                ballObject.SetActive(true);
             }
         }
     }
