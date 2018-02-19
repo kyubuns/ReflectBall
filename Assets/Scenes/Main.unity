@@ -240,6 +240,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Velocity: {x: -4, y: -2}
   Radius: 0.2
+  Type: 0
+  Top: {r: 0, g: 0, b: 0, a: 0}
+  Bottom: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &356618901
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +253,7 @@ GameObject:
   - component: {fileID: 356618902}
   m_Layer: 0
   m_Name: BottomBar
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -357,6 +360,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Velocity: {x: 0, y: 0}
   Radius: 0.2
+  Type: 0
+  Top: {r: 0.16078432, g: 0.29803923, b: 0.8000001, a: 1}
+  Bottom: {r: 0.92549026, g: 0.32156864, b: 0.32156864, a: 1}
 --- !u!1 &469519992
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +375,7 @@ GameObject:
   - component: {fileID: 469519995}
   m_Layer: 10
   m_Name: Side
-  m_TagString: Untagged
+  m_TagString: Stage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -543,6 +549,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Velocity: {x: 0, y: 0}
   Radius: 0.2
+  Type: 0
+  Top: {r: 0, g: 0, b: 0, a: 0}
+  Bottom: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &495251671
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,7 +636,7 @@ GameObject:
   - component: {fileID: 642475182}
   m_Layer: 0
   m_Name: Image
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -776,6 +785,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Velocity: {x: 0, y: 0}
   Radius: 0.2
+  Type: 0
+  Top: {r: 0, g: 0, b: 0, a: 0}
+  Bottom: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &682425192
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,7 +799,7 @@ GameObject:
   - component: {fileID: 682425194}
   m_Layer: 11
   m_Name: Dead
-  m_TagString: Untagged
+  m_TagString: Dead
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -882,7 +894,7 @@ GameObject:
   - component: {fileID: 717601368}
   m_Layer: 10
   m_Name: Side
-  m_TagString: Untagged
+  m_TagString: Stage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1128,7 +1140,7 @@ GameObject:
   - component: {fileID: 1021708920}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1170,7 +1182,7 @@ GameObject:
   - component: {fileID: 1055781115}
   m_Layer: 8
   m_Name: Hit
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1224,7 +1236,7 @@ GameObject:
   - component: {fileID: 1091345150}
   m_Layer: 9
   m_Name: Hit
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1406,7 +1418,7 @@ GameObject:
   - component: {fileID: 1378693460}
   m_Layer: 0
   m_Name: Image
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1492,7 +1504,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1429412291}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.12, y: -4.22, z: 0}
+  m_LocalPosition: {x: -0.15, y: -4.27, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 1704129973}
@@ -1555,6 +1567,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Velocity: {x: 3, y: -5}
   Radius: 0.2
+  Type: 0
+  Top: {r: 0, g: 0, b: 0, a: 0}
+  Bottom: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1452751513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1719,7 +1734,7 @@ GameObject:
   - component: {fileID: 1575210506}
   m_Layer: 0
   m_Name: TopBar
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2084,6 +2099,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Velocity: {x: 0, y: 0}
   Radius: 0.2
+  Type: 0
+  Top: {r: 0, g: 0, b: 0, a: 0}
+  Bottom: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1868477390
 GameObject:
   m_ObjectHideFlags: 0
