@@ -11,9 +11,10 @@ namespace Game
         public void Start()
         {
             originalPosition = transform.position;
+            var layerMask = LayerMask.GetMask("Stage");
             var size = GetComponentInChildren<Collider2D>().bounds.size;
-            var leftHit = Physics2D.Raycast(originalPosition, Vector2.left, float.PositiveInfinity, LayerMask.GetMask("Stage"));
-            var rightHit = Physics2D.Raycast(originalPosition, Vector2.right, float.PositiveInfinity, LayerMask.GetMask("Stage"));
+            var leftHit = Physics2D.Raycast(originalPosition, Vector2.left, float.PositiveInfinity, layerMask);
+            var rightHit = Physics2D.Raycast(originalPosition, Vector2.right, float.PositiveInfinity, layerMask);
             rangeMin = originalPosition.x - leftHit.distance + size.x / 2.0f;
             rangeMax = originalPosition.x + rightHit.distance - size.x / 2.0f;
         }
