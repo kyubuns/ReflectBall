@@ -39,7 +39,7 @@ namespace Game
             {
                 var targetPositionX = Random.Range(rangeMin, rangeMax);
 
-                for (var i = 0; i < 3; ++i)
+                for (var i = 0; i < 30; ++i)
                 {
                     var targetType = new[] {Ball.BallType.Bottom, Ball.BallType.Top}[Random.Range(0, 2)];
                     var targetPositionY = targetType == Ball.BallType.Top ? barTop.position.y : barBottom.position.y;

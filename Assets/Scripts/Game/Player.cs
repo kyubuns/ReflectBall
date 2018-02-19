@@ -27,13 +27,13 @@ namespace Game
             subject.OnNext(Unit.Default);
 
             Anime.PlayRelative(ball.transform.position, new Vector3(0f, 15f, 0f), Easing.OutExpo(TimeSpan.FromSeconds(1.5f)))
+                .TakeUntilDestroy(ball.gameObject)
                 .DoOnCompleted(() => Destroy(ball.gameObject))
-                .SubscribeToPosition(ball.gameObject)
-                .AddTo(ball.gameObject);
+                .SubscribeToPosition(ball.gameObject);
 
             Anime.PlayRelative(ball.transform.localScale, new Vector3(-0.2f, 1f, 0f), Easing.OutCubic(TimeSpan.FromSeconds(0.5f)))
-                .SubscribeToLocalScale(ball.gameObject)
-                .AddTo(ball.gameObject);
+                .TakeUntilDestroy(ball.gameObject)
+                .SubscribeToLocalScale(ball.gameObject);
         }
     }
 }
