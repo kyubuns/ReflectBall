@@ -15,6 +15,7 @@ namespace Game
             ball.IsAlive = false;
 
             Anime.PlayRelative(ball.transform.position, new Vector3(0f, 15f, 0f), Easing.OutExpo(TimeSpan.FromSeconds(1.5f)))
+                .DoOnCompleted(() => Destroy(ball.gameObject))
                 .SubscribeToPosition(ball.gameObject)
                 .AddTo(ball.gameObject);
 
