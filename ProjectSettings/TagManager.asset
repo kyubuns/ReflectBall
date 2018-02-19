@@ -38,6 +38,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2381009949
+    locked: 0
+  - name: Stage
+    uniqueID: 1216807219
+    locked: 0
+  - name: Ball
+    uniqueID: 3668578889
+    locked: 0
+  - name: Player
+    uniqueID: 1453775383
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
