@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Game.System
+namespace GameSystem
 {
     public class Messenger : MonoBehaviour
     {

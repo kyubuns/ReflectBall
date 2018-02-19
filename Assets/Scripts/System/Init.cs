@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Game.System
+namespace GameSystem
 {
     public class Init : MonoBehaviour
     {

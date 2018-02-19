@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.System
+namespace GameSystem
 {
     public class KeyboardInput : MonoBehaviour
     {
