@@ -14,8 +14,13 @@ namespace Game
         public void Start()
         {
             text = GetComponent<Text>();
-            text.text = "Tutorial";
+            text.text = "";
 
+            Messenger.Broker.Receive<OnGameStart>().Subscribe(x =>
+            {
+                if (inTutorial) text.text = "Tutorial";
+                else UpdateScoreText(0);
+            }).AddTo(this);
             Messenger.Broker.Receive<OnUpdateScore>().Subscribe(x => UpdateScoreText(x.Score)).AddTo(this);
             Messenger.Broker.Receive<FinishTutorial>().Subscribe(_ =>
             {

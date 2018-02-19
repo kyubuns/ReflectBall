@@ -34,7 +34,7 @@ namespace GameSystem
                 yield return new WaitForSeconds(2.0f);
 
                 Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Bottom}, Num = 3});
-                yield return new WaitForSeconds(4.0f);
+                yield return new WaitForSeconds(5.0f);
 
                 Messenger.Broker.Publish(new OnShowTopBar());
                 yield return new WaitForSeconds(1.0f);
@@ -48,10 +48,16 @@ namespace GameSystem
                 yield return new WaitForSeconds(3.0f);
             }
 
+            var loop = 0;
             while (true)
             {
-                Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom}, Num = 3});
-                yield return new WaitForSeconds(1.0f);
+                var num = Mathf.RoundToInt(Random.Range(1, 2 + Mathf.Sqrt(loop)));
+                var wait = Random.Range(0.2f, Mathf.Max(3.0f - loop * 0.05f, 0.7f));
+                Debug.Log($"{loop}: {num}, {wait}");
+                Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom}, Num = num});
+
+                yield return new WaitForSeconds(wait);
+                loop++;
             }
         }
     }
