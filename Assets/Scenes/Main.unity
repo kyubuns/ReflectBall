@@ -930,6 +930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d84102e2f8942a3a59a764d7ca697a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 1378693460}
 --- !u!1 &1091345148
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,6 +997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d84102e2f8942a3a59a764d7ca697a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 642475182}
 --- !u!1 &1109792187
 GameObject:
   m_ObjectHideFlags: 0
