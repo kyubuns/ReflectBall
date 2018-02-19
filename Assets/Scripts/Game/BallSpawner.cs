@@ -2,6 +2,8 @@
 using GameSystem;
 using UniRx;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 // ReSharper disable IteratorNeverReturns
 
 namespace Game
@@ -9,12 +11,12 @@ namespace Game
     public class BallSpawner : MonoBehaviour
     {
         [SerializeField] private GameObject ballPrefab;
-        [SerializeField] private GameObject barTop;
-        [SerializeField] private GameObject barBottom;
+        [SerializeField] private Transform barTop;
+        [SerializeField] private Transform barBottom;
 
         private float rangeMin;
         private float rangeMax;
-        private const float Sec = 3.0f;
+        private const float Sec = 6.0f;
 
         public void Start()
         {
@@ -33,22 +35,31 @@ namespace Game
         {
             while (true)
             {
-                yield return new WaitForSeconds(Random.Range(0.3f, 1.0f));
+                yield return new WaitForSeconds(1.0f);
 
-                var ballObject = Instantiate(ballPrefab, transform, true);
+                var targetType = new[] {Ball.BallType.Bottom, Ball.BallType.Top}[Random.Range(0, 2)];
+                var targetPositionY = targetType == Ball.BallType.Top ? barTop.position.y : barBottom.position.y;
+                var targetPositionX = 0.0f;
 
-                var ball = ballObject.GetComponent<Ball>();
-                ball.Type = new[] {Ball.BallType.Bottom, Ball.BallType.Top}[Random.Range(0, 2)];
-                ball.Velocity = new Vector2(Random.Range(-6f, 6f), Random.Range(-2f, -6f));
+                for (var i = 0; i < 5; ++i)
+                {
+                    var ballObject = Instantiate(ballPrefab, transform, true);
 
-                var barPosition = ball.Type == Ball.BallType.Top
-                    ? barTop.transform.position.y
-                    : barBottom.transform.position.y;
+                    var ball = ballObject.GetComponent<Ball>();
+                    ball.Type = targetType;
+                    ball.Velocity = new Vector2(Random.Range(-6f, 6f), Random.Range(-2f, -6f));
 
-                ballObject.transform.position = new Vector3(
-                    Random.Range(rangeMin, rangeMax),
-                    barPosition - ball.Velocity.y * Sec,
-                    transform.position.z);
+                    var startY = targetPositionY - ball.Velocity.y * Sec;
+
+                    var startX = targetPositionX - ball.Velocity.x * Sec;
+                    var d = rangeMax - rangeMin;
+                    while (startX < rangeMin || rangeMax < startX)
+                    {
+                        startX += startX > 0f ? -d : d;
+                    }
+
+                    ballObject.transform.position = new Vector3(startX, startY, transform.position.z);
+                }
             }
         }
     }
