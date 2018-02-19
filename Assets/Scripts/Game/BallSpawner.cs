@@ -33,13 +33,13 @@ namespace Game
 
         private IEnumerator Spawner()
         {
+            var d = rangeMax - rangeMin;
+            
             while (true)
             {
-                yield return new WaitForSeconds(1.0f);
+                var targetPositionX = Random.Range(rangeMin, rangeMax);
 
-                var targetPositionX = 0.0f;
-
-                for (var i = 0; i < 5; ++i)
+                for (var i = 0; i < 3; ++i)
                 {
                     var targetType = new[] {Ball.BallType.Bottom, Ball.BallType.Top}[Random.Range(0, 2)];
                     var targetPositionY = targetType == Ball.BallType.Top ? barTop.position.y : barBottom.position.y;
@@ -51,16 +51,22 @@ namespace Game
                     ball.Velocity = new Vector2(Random.Range(-6f, 6f), Random.Range(-2f, -6f));
 
                     var startY = targetPositionY - ball.Velocity.y * Sec;
+                    var calcX = targetPositionX - ball.Velocity.x * Sec;
 
-                    var startX = targetPositionX - ball.Velocity.x * Sec;
-                    var d = rangeMax - rangeMin;
-                    while (startX < rangeMin || rangeMax < startX)
+                    var startX = (calcX - rangeMin) % d + rangeMin;
+                    var b = calcX > rangeMin ? Mathf.FloorToInt((calcX - rangeMin) / d) : Mathf.CeilToInt((calcX - rangeMin) / d);
+                    if (startX < rangeMin)
                     {
-                        startX += startX > 0f ? -d : d;
+                        startX += d;
+                        b++;
                     }
-
+                    startX *= b % 2 == 0 ? 1 : -1;
+                    ball.Velocity.x = ball.Velocity.x * Mathf.Pow(-1.0f, b);
+                    Debug.Log($"Spawn ({startX}, {startY}) {ball.Velocity}");
                     ballObject.transform.position = new Vector3(startX, startY, transform.position.z);
                 }
+
+                yield return new WaitForSeconds(5.0f);
             }
         }
     }
