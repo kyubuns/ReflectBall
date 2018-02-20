@@ -62,9 +62,19 @@ namespace GameSystem
                 yield return new WaitForSeconds(3.0f);
 
                 Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Top}, Num = 3});
+                yield return new WaitForSeconds(3.0f);
+
+                Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom}, Num = 3});
+                yield return new WaitForSeconds(3.0f);
+
+                Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom}, Num = 3});
+                yield return new WaitForSeconds(3.0f);
+
+                Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom}, Num = 3});
+                yield return new WaitForSeconds(5.0f);
+
                 Messenger.Broker.Publish(new FinishTutorial());
                 tutorialFinished = true;
-                yield return new WaitForSeconds(3.0f);
             }
 
             var loop = 0;
