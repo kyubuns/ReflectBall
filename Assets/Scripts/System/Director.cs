@@ -77,13 +77,13 @@ namespace GameSystem
                 tutorialFinished = true;
             }
 
-            var loop = 0;
+            var loop = 1;
             while (true)
             {
-                var num = Mathf.RoundToInt(Random.Range(1, 2 + Mathf.RoundToInt(loop / 2f)));
-                var wait = Random.Range(0.3f, Mathf.Max(3.0f - loop * 0.05f, 0.5f));
-                Debug.Log($"{loop}: {num}, {wait}");
+                var num = Mathf.Clamp((loop / 3) + 1, 1, 5);
+                var wait = Mathf.Clamp(3.0f - loop / 10.0f, 0.3f, 3.0f);
                 Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom}, Num = num});
+                Debug.Log($"{loop}: {num} {wait}");
 
                 yield return new WaitForSeconds(wait);
                 loop++;
