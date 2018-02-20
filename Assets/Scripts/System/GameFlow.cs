@@ -6,6 +6,7 @@ namespace GameSystem
     public class GameFlow : MonoBehaviour
     {
         private int score;
+        private bool inGame;
         private bool inTutorial;
 
         public void Start()
@@ -16,6 +17,7 @@ namespace GameSystem
             {
                 if (inTutorial) return;
 
+                inGame = true;
                 score = 0;
                 Messenger.Broker.Publish(new OnUpdateScore{ Score = score });
             }).AddTo(this);
@@ -23,12 +25,15 @@ namespace GameSystem
             Messenger.Broker.Receive<OnRefrectBall>().Subscribe(_ =>
             {
                 if (inTutorial) return;
+                if (!inGame) return;
+
                 score++;
                 Messenger.Broker.Publish(new OnUpdateScore{ Score = score });
             }).AddTo(this);
 
             Messenger.Broker.Receive<OnDropBall>().Subscribe(_ =>
             {
+                inGame = false;
                 Messenger.Broker.Publish(new OnGameOver{ Score = score });
             }).AddTo(this);
 
