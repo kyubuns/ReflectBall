@@ -47,8 +47,8 @@ namespace Game
                 // バーには当たらないように進める
                 hitLayerMask = LayerMask.GetMask("Stage", "Dead", "Eraser");
 
-                // 1秒経過時点でエフェクトも出さない
-                Observable.Timer(TimeSpan.FromSeconds(1.0f))
+                // n秒経過時点でエフェクトも出さない
+                Observable.Timer(TimeSpan.FromSeconds(0.5f))
                     .TakeUntilDestroy(gameObject)
                     .Subscribe(x =>
                     {
