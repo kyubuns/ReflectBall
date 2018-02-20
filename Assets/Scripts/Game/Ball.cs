@@ -47,8 +47,16 @@ namespace Game
                 // バーには当たらないように進める
                 hitLayerMask = LayerMask.GetMask("Stage", "Dead", "Eraser");
 
+                // 1秒経過時点でエフェクトも出さない
+                Observable.Timer(TimeSpan.FromSeconds(1.0f))
+                    .TakeUntilDestroy(gameObject)
+                    .Subscribe(x =>
+                    {
+                        hitLayerMask = LayerMask.GetMask("Stage");
+                    });
+
                 var c = spriteRenderer.color;
-                Anime.Play(1f, 0f, Easing.InOutCubic(TimeSpan.FromSeconds(1f)))
+                Anime.Play(1f, 0f, Easing.InOutCubic(TimeSpan.FromSeconds(1.5f)))
                     .TakeUntilDestroy(gameObject)
                     .DoOnCompleted(() => Destroy(gameObject))
                     .Subscribe(x =>
