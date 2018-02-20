@@ -36,7 +36,6 @@ namespace Game
 
         private void UpdateScoreText(int score)
         {
-            if (inTutorial) return;
             text.text = $"Score: {score}";
         }
     }
