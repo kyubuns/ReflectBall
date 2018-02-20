@@ -53,11 +53,11 @@ TagManager:
   - name: ReflectedBall
     uniqueID: 4152723665
     locked: 0
-  - name: Ball
-    uniqueID: 3668578889
-    locked: 0
   - name: Player
     uniqueID: 1453775383
+    locked: 0
+  - name: Ball
+    uniqueID: 3668578889
     locked: 0
   - name: Default
     uniqueID: 0
