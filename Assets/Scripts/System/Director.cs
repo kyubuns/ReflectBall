@@ -165,14 +165,16 @@ namespace GameSystem
             {
                 var numMax = Mathf.Clamp((loop / 3) + 1, 1, 5);
                 var num = Random.Range(1, numMax + 1);
-                if (Random.Range(0, 3) % 3 == 0) num = 1;
                 var velocityX = Mathf.Clamp((loop / 6f) + 2f, 2f, 10f);
                 var velocityY = Mathf.Clamp((loop / 8f) + 3f, 3f, 6f);
-                var wait = Mathf.Clamp(2.0f - loop / 30.0f, 0.3f, 2.0f);
+                var wait = Mathf.Clamp(1.5f - loop / 50.0f, 0.35f, 1.5f) + Random.Range(-0.1f, 0.1f);
+                var types =
+                    Random.Range(0, 5) != 0 ? new[] {Ball.BallType.Top, Ball.BallType.Bottom} :
+                    Random.Range(0, 2) == 0 ? new[] {Ball.BallType.Top} : new[] {Ball.BallType.Bottom};
 
                 Messenger.Broker.Publish(new RequestBall
                 {
-                    Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom},
+                    Types = types,
                     Num = num,
                     VelocityX = velocityX,
                     VelocityY = Tuple.Create(3f, velocityY)
