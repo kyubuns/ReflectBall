@@ -44,7 +44,9 @@ namespace Game
 
             Messenger.Broker.Receive<OnGameFinish>().Subscribe(_ =>
             {
-                IsAlive = false;
+                // バーには当たらないように進める
+                hitLayerMask = LayerMask.GetMask("Stage", "Dead", "Eraser");
+
                 var c = spriteRenderer.color;
                 Anime.Play(1f, 0f, Easing.InOutCubic(TimeSpan.FromSeconds(1f)))
                     .TakeUntilDestroy(gameObject)

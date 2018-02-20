@@ -31,7 +31,7 @@ namespace Game
             var s = effect.transform.localScale;
             Observable.CombineLatest(
                 Anime.Play(0.3f, 0.0f, Easing.OutExpo(TimeSpan.FromSeconds(2f))),
-                Anime.Play(1.0f, 20.0f, Easing.OutExpo(TimeSpan.FromSeconds(1f)))
+                Anime.Play(1.0f, 25.0f, Easing.OutExpo(TimeSpan.FromSeconds(1f)))
             ).Subscribe(x =>
             {
                 s.x = x[0];
