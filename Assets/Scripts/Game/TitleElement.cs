@@ -37,7 +37,8 @@ namespace Game
             Messenger.Broker.Receive<OnGameFinish>()
                 .Select(_ =>
                 {
-                    return Anime.Play(0.0f, 1.0f, Easing.InCubic(TimeSpan.FromSeconds(0.3f)))
+                    return Anime.Wait<float>(TimeSpan.FromSeconds(1.0f))
+                        .Play(0.0f, 1.0f, Easing.InCubic(TimeSpan.FromSeconds(0.3f)))
                         .DoOnCompleted(() =>
                         {
                             foreach (var selectable in selectables)
