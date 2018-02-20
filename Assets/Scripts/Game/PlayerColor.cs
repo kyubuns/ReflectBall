@@ -19,7 +19,7 @@ namespace Game
             bottom.color = Colors.Bottom;
 
             Messenger.Broker.Receive<OnShowTopBar>()
-                .Select(x => Anime.Play(c.a, 1.0f, Easing.InOutCubic(TimeSpan.FromSeconds(0.3f))))
+                .Select(x => Anime.Play(c.a, 1.0f, Easing.InOutCubic(TimeSpan.FromSeconds(0.8f))))
                 .Switch()
                 .Subscribe(x =>
                 {
