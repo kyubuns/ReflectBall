@@ -20,6 +20,7 @@ namespace Game
 
         public bool IsAlive { get; set; }
         private LayerMask hitLayerMask;
+        private int touchStage;
 
         public void Start()
         {
@@ -82,7 +83,7 @@ namespace Game
             {
                 if (hit.collider.gameObject.CompareTag("Stage"))
                 {
-                    next = HitStage(hit, current, direction);
+                    next = HitStage(hit, current, direction, next);
                 }
                 else
                 {
@@ -93,10 +94,14 @@ namespace Game
             transform.position = new Vector3(next.x, next.y, transform.position.z);
         }
 
-        private Vector2 HitStage(RaycastHit2D hit, Vector2 current, Vector2 direction)
+        private Vector2 HitStage(RaycastHit2D hit, Vector2 current, Vector2 direction, Vector2 next)
         {
+            // 1フレ前に壁に触れていたら、今接触している壁だろうから無視
+            if (touchStage == Time.frameCount - 1) return next;
+
             Velocity.x *= -1f;
-            return current + direction * Mathf.Max(hit.distance - 0.01f, 0.0f);
+            touchStage = Time.frameCount;
+            return current + direction * Mathf.Max(hit.distance, 0.0f);
         }
     }
 }
