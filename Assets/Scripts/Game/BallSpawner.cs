@@ -1,4 +1,5 @@
-﻿using GameSystem;
+﻿using System;
+using GameSystem;
 using UniRx;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -41,7 +42,7 @@ namespace Game
 
                 var ball = ballObject.GetComponent<Ball>();
                 ball.Type = targetType;
-                ball.Velocity = new Vector2(Random.Range(-6f, 6f), Random.Range(-3f, -6f));
+                ball.Velocity = new Vector2(Random.Range(-args.VelocityX, args.VelocityX), -Random.Range(args.VelocityY.Item1, args.VelocityY.Item2));
 
                 var startY = targetPositionY - ball.Velocity.y * Sec;
                 var calcX = targetPositionX - ball.Velocity.x * Sec;
@@ -68,5 +69,7 @@ namespace Game
     {
         public Ball.BallType[] Types { get; set; }
         public int Num { get; set; }
+        public float VelocityX { get; set; }
+        public Tuple<float, float> VelocityY { get; set; }
     }
 }

@@ -1,7 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Game;
 using UniRx;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 // ReSharper disable IteratorNeverReturns
 
 namespace GameSystem
@@ -40,39 +43,119 @@ namespace GameSystem
             // Tutorial
             if (!tutorialFinished)
             {
-                Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Bottom}, Num = 1});
+                // 真っ直ぐ下に1つ落とす
+                Messenger.Broker.Publish(new RequestBall
+                {
+                    Types = new[] {Ball.BallType.Bottom},
+                    Num = 1,
+                    VelocityX = 0f,
+                    VelocityY = Tuple.Create(3f, 3f)
+                });
                 yield return new WaitForSeconds(3.0f);
 
-                Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Bottom}, Num = 1});
+                // ちょっと角度をつけて1つ
+                Messenger.Broker.Publish(new RequestBall
+                {
+                    Types = new[] {Ball.BallType.Bottom},
+                    Num = 1,
+                    VelocityX = 2f,
+                    VelocityY = Tuple.Create(3f, 3f)
+                });
                 yield return new WaitForSeconds(2.0f);
 
-                Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Bottom}, Num = 1});
+                // もう一回
+                Messenger.Broker.Publish(new RequestBall
+                {
+                    Types = new[] {Ball.BallType.Bottom},
+                    Num = 1,
+                    VelocityX = 3f,
+                    VelocityY = Tuple.Create(3f, 3f)
+                });
                 yield return new WaitForSeconds(2.0f);
 
-                Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Bottom}, Num = 2});
+                // 数を増やす
+                Messenger.Broker.Publish(new RequestBall
+                {
+                    Types = new[] {Ball.BallType.Bottom},
+                    Num = 2,
+                    VelocityX = 3f,
+                    VelocityY = Tuple.Create(3f, 3f)
+                });
                 yield return new WaitForSeconds(2.0f);
 
-                Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Bottom}, Num = 3});
+                // 3つ
+                Messenger.Broker.Publish(new RequestBall
+                {
+                    Types = new[] {Ball.BallType.Bottom},
+                    Num = 3,
+                    VelocityX = 3f,
+                    VelocityY = Tuple.Create(3f, 3f)
+                });
                 yield return new WaitForSeconds(5.0f);
 
+                // 上のバーも出して
                 Messenger.Broker.Publish(new OnShowTopBar());
                 yield return new WaitForSeconds(1.0f);
 
-                Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Top}, Num = 1});
+                // 同じことを繰り返し
+                Messenger.Broker.Publish(new RequestBall
+                {
+                    Types = new[] {Ball.BallType.Top},
+                    Num = 1,
+                    VelocityX = 3f,
+                    VelocityY = Tuple.Create(3f, 3f)
+                });
                 yield return new WaitForSeconds(3.0f);
 
-                Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Top}, Num = 3});
+                Messenger.Broker.Publish(new RequestBall
+                {
+                    Types = new[] {Ball.BallType.Top},
+                    Num = 2,
+                    VelocityX = 3f,
+                    VelocityY = Tuple.Create(3f, 3f)
+                });
                 yield return new WaitForSeconds(3.0f);
 
-                Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom}, Num = 3});
+                // 混合タイプ
+                Messenger.Broker.Publish(new RequestBall
+                {
+                    Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom},
+                    Num = 3,
+                    VelocityX = 3f,
+                    VelocityY = Tuple.Create(3f, 3f)
+                });
                 yield return new WaitForSeconds(3.0f);
 
-                Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom}, Num = 3});
+                Messenger.Broker.Publish(new RequestBall
+                {
+                    Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom},
+                    Num = 3,
+                    VelocityX = 3f,
+                    VelocityY = Tuple.Create(3f, 3f)
+                });
                 yield return new WaitForSeconds(3.0f);
 
-                Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom}, Num = 3});
-                yield return new WaitForSeconds(5.0f);
+                // 速度もばらつかせる
+                Messenger.Broker.Publish(new RequestBall
+                {
+                    Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom},
+                    Num = 3,
+                    VelocityX = 3f,
+                    VelocityY = Tuple.Create(3f, 5f)
+                });
+                yield return new WaitForSeconds(3.0f);
 
+                // 速度もばらつかせる
+                Messenger.Broker.Publish(new RequestBall
+                {
+                    Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom},
+                    Num = 3,
+                    VelocityX = 3f,
+                    VelocityY = Tuple.Create(3f, 5f)
+                });
+                yield return new WaitForSeconds(3.0f);
+
+                yield return new WaitForSeconds(2.0f);
                 Messenger.Broker.Publish(new FinishTutorial());
                 tutorialFinished = true;
             }
@@ -83,10 +166,18 @@ namespace GameSystem
                 var numMax = Mathf.Clamp((loop / 3) + 1, 1, 5);
                 var num = Random.Range(1, numMax + 1);
                 if (Random.Range(0, 3) % 3 == 0) num = 1;
+                var velocityX = Mathf.Clamp((loop / 6f) + 2f, 2f, 8f);
+                var velocityY = Mathf.Clamp((loop / 8f) + 3f, 3f, 6f);
+                var wait = Mathf.Clamp(2.0f - loop / 30.0f, 0.3f, 2.0f);
 
-                var wait = Mathf.Clamp(3.0f - loop / 10.0f, 0.3f, 3.0f);
-                Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom}, Num = num});
-                Debug.Log($"{loop}: {num}({numMax}) {wait}");
+                Messenger.Broker.Publish(new RequestBall
+                {
+                    Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom},
+                    Num = num,
+                    VelocityX = velocityX,
+                    VelocityY = Tuple.Create(3f, velocityY)
+                });
+                Debug.Log($"{loop}: {num}({numMax}) x:{velocityX:0.00} y:{velocityY:0.00} wait:{wait:0.00}");
 
                 yield return new WaitForSeconds(wait);
                 loop++;
