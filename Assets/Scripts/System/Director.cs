@@ -80,10 +80,13 @@ namespace GameSystem
             var loop = 1;
             while (true)
             {
-                var num = Mathf.Clamp((loop / 3) + 1, 1, 5);
+                var numMax = Mathf.Clamp((loop / 3) + 1, 1, 5);
+                var num = Random.Range(1, numMax + 1);
+                if (Random.Range(0, 3) % 3 == 0) num = 1;
+
                 var wait = Mathf.Clamp(3.0f - loop / 10.0f, 0.3f, 3.0f);
                 Messenger.Broker.Publish(new RequestBall {Types = new[] {Ball.BallType.Top, Ball.BallType.Bottom}, Num = num});
-                Debug.Log($"{loop}: {num} {wait}");
+                Debug.Log($"{loop}: {num}({numMax}) {wait}");
 
                 yield return new WaitForSeconds(wait);
                 loop++;
