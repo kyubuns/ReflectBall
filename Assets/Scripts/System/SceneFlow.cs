@@ -2,6 +2,7 @@
 using UniRx;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+// ReSharper disable IteratorNeverReturns
 
 namespace GameSystem
 {
@@ -22,10 +23,11 @@ namespace GameSystem
                 Debug.Log("Game Start");
                 Messenger.Broker.Publish(new OnGameStart());
 
-                yield return Messenger.Broker.Receive<OnGameOver>().First().ToYieldInstruction();
+                var message = Messenger.Broker.Receive<OnGameOver>().First().ToYieldInstruction();
+                yield return message;
 
                 Debug.Log("Game Finish");
-                Messenger.Broker.Publish(new OnGameFinish());
+                Messenger.Broker.Publish(new OnGameFinish{ Score = message.Result.Score });
             }
         }
     }
@@ -44,5 +46,6 @@ namespace GameSystem
 
     public class OnGameFinish
     {
+        public int Score { get; set; }
     }
 }

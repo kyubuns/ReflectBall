@@ -23,7 +23,7 @@ namespace GameSystem
 
             Messenger.Broker.Receive<OnDropBall>().Subscribe(_ =>
             {
-                Messenger.Broker.Publish(new OnGameOver());
+                Messenger.Broker.Publish(new OnGameOver{ Score = score });
             }).AddTo(this);
         }
     }
@@ -43,5 +43,6 @@ namespace GameSystem
 
     public class OnGameOver
     {
+        public int Score { get; set; }
     }
 }

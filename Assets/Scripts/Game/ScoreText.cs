@@ -6,11 +6,10 @@ using UnityEngine.UI;
 namespace Game
 {
     [RequireComponent(typeof(Text))]
-    public class ScoreCounter : MonoBehaviour
+    public class ScoreText : MonoBehaviour
     {
         private Text text;
         private bool inTutorial = true;
-        private int highScore;
 
         public void Start()
         {
@@ -38,8 +37,7 @@ namespace Game
         private void UpdateScoreText(int score)
         {
             if (inTutorial) return;
-            highScore = Mathf.Max(score, highScore);
-            text.text = $"Score: {score}\n(High Score: {highScore})";
+            text.text = $"Score: {score}";
         }
     }
 }
