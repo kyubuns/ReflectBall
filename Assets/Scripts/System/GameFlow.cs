@@ -15,9 +15,9 @@ namespace GameSystem
 
             Messenger.Broker.Receive<OnGameStart>().Subscribe(_ =>
             {
+                inGame = true;
                 if (inTutorial) return;
 
-                inGame = true;
                 score = 0;
                 Messenger.Broker.Publish(new OnUpdateScore{ Score = score });
             }).AddTo(this);
